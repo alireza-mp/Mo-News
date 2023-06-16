@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import ir.alirezamp.designsystem.collectInLaunchedEffect
 import ir.alirezamp.designsystem.useBase
 import ir.alirezamp.designsystem.widget.ErrorView
@@ -21,7 +20,6 @@ fun BaseRoute(
 
     val (baseState, baseEffect, baseEvent) = useBase(viewModel = baseViewModel)
 
-    val context = LocalContext.current
     val activity = content as? Activity
 
     baseEffect.collectInLaunchedEffect { effect ->
