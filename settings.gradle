@@ -14,3 +14,8 @@ dependencyResolutionManagement {
 }
 rootProject.name = "Mo News"
 include ':app'
+include ':library:designsystem'
+include ':library:navigation'
+include ':core'
+include ':constants'
+include ':components'
