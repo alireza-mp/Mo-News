@@ -16,6 +16,13 @@
             <option value="$PROJECT_DIR$/library" />
             <option value="$PROJECT_DIR$/library/designsystem" />
             <option value="$PROJECT_DIR$/library/navigation" />
+            <option value="$PROJECT_DIR$/news" />
+            <option value="$PROJECT_DIR$/news/news-datasource" />
+            <option value="$PROJECT_DIR$/news/news-domain" />
+            <option value="$PROJECT_DIR$/news/news-interactors" />
+            <option value="$PROJECT_DIR$/news/ui-news-detail" />
+            <option value="$PROJECT_DIR$/news/ui-news-favorite" />
+            <option value="$PROJECT_DIR$/news/ui-news-list" />
           </set>
         </option>
       </GradleProjectSettings>
