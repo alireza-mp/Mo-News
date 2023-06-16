@@ -39,5 +39,6 @@ android {
 }
 
 dependencies {
-
+    implementation(project(":library:navigation"))
+    implementation(project(":library:designsystem"))
 }

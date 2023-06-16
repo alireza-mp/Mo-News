@@ -24,8 +24,8 @@ android {
         release {
             isMinifyEnabled = false
             proguardFiles(
-                    getDefaultProguardFile("proguard-android-optimize.txt"),
-                    "proguard-rules.pro"
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
             )
         }
     }
@@ -53,6 +53,7 @@ dependencies {
 
     implementation(project(":library:navigation"))
     implementation(project(":library:designsystem"))
+    implementation(project(":components"))
     implementation("androidx.core:core-ktx:1.10.1")
     implementation(platform("org.jetbrains.kotlin:kotlin-bom:1.8.10"))
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
