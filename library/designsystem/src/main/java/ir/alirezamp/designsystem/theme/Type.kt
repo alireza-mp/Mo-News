@@ -1,4 +1,4 @@
-package ir.alirezamp.monews.ui.theme
+package ir.alirezamp.designsystem.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

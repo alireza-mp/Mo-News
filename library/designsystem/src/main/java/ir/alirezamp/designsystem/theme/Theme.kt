@@ -1,4 +1,4 @@
-package ir.alirezamp.monews.ui.theme
+package ir.alirezamp.designsystem.theme
 
 import android.app.Activity
 import android.os.Build
