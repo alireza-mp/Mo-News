@@ -22,7 +22,7 @@ import ir.alirezamp.components.TabRow
 import ir.alirezamp.components.util.TabState
 import ir.alirezamp.designsystem.base.BaseViewModel
 import ir.alirezamp.news_list.ui.flowing_news.FlowingNewsScreen
-import ir.alirezamp.news_list.ui.recommended_news.RecommendedNewsScreen
+import ir.alirezamp.news_list.ui.suggested_news.SuggestedNewsScreen
 import kotlinx.coroutines.launch
 
 @Composable
@@ -42,7 +42,7 @@ private fun NewsScreen(
     onNavigateToNewsDetailScreen: (newsId: String) -> Unit,
     onProvideBaseViewModel: (baseViewModel: BaseViewModel) -> Unit,
 ) {
-    val tabState = remember { mutableStateOf(TabState.Recommended) }
+    val tabState = remember { mutableStateOf(TabState.Suggested) }
     val pagerState = rememberPagerState()
     val coroutineScope = rememberCoroutineScope()
     // header
@@ -72,7 +72,7 @@ private fun NewsScreen(
         ) { page ->
             when (page) {
                 0 -> {
-                    RecommendedNewsScreen(
+                    SuggestedNewsScreen(
                         onNavigateToNewsDetailScreen = onNavigateToNewsDetailScreen,
                         onProvideBaseViewModel = onProvideBaseViewModel,
                     )
@@ -89,7 +89,7 @@ private fun NewsScreen(
         // update tabRow state when page scrolled
         LaunchedEffect(pagerState.currentPage) {
             if (pagerState.currentPage == 0) {
-                tabState.value = TabState.Recommended
+                tabState.value = TabState.Suggested
             } else {
                 tabState.value = TabState.Flowing
             }

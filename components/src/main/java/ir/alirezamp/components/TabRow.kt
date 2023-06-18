@@ -5,8 +5,6 @@ import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.tween
-import androidx.compose.foundation.interaction.Interaction
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -26,8 +24,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import ir.alirezamp.components.util.TabState
 import ir.alirezamp.designsystem.util.NoRippleInteractionSource
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.emptyFlow
 
 
 @Composable
@@ -50,14 +46,14 @@ fun TabRow(
         ) {
             val inductorWidth = maxWidth / 2f
             val inductorXAnim by animateDpAsState(
-                targetValue = if (tabState == TabState.Recommended) 0.dp else inductorWidth,
+                targetValue = if (tabState == TabState.Suggested) 0.dp else inductorWidth,
                 animationSpec = tween(
                     durationMillis = 250,
                     easing = LinearEasing,
                 )
             )
-            val recommendedColor by animateColorAsState(
-                targetValue = if (tabState == TabState.Recommended)
+            val suggestedColor by animateColorAsState(
+                targetValue = if (tabState == TabState.Suggested)
                     MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSecondary,
                 animationSpec = tween(
                     durationMillis = 250,
@@ -88,7 +84,7 @@ fun TabRow(
             Row(
                 modifier = Modifier.fillMaxSize(),
             ) {
-                // recommended
+                // Suggested
                 TextButton(
                     shape = MaterialTheme.shapes.medium,
                     modifier = Modifier
@@ -101,7 +97,7 @@ fun TabRow(
                 ) {
                     Text(
                         text = "پیشنهادی",
-                        color = recommendedColor,
+                        color = suggestedColor,
                         style = MaterialTheme.typography.titleLarge,
                     )
                 }
