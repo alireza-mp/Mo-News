@@ -1,4 +1,4 @@
-package ir.alirezamp.components
+package ir.alirezamp.navigation
 
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.animateDpAsState
@@ -27,8 +27,6 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import ir.alirezamp.navigation.BottomNavigationTabs
-import ir.alirezamp.navigation.findDestinations
 
 
 @Composable
@@ -82,7 +80,7 @@ private fun Content(
 
     BottomNavigation(
         modifier = Modifier.fillMaxWidth(),
-        backgroundColor = MaterialTheme.colorScheme.surface
+        backgroundColor = MaterialTheme.colorScheme.surfaceVariant
     ) {
         items.forEachIndexed { index, item ->
             BottomNavigationItem(
@@ -100,7 +98,7 @@ private fun Content(
                     }
                 },
                 selectedContentColor = MaterialTheme.colorScheme.primary,
-                unselectedContentColor = MaterialTheme.colorScheme.secondary,
+                unselectedContentColor = MaterialTheme.colorScheme.onSurfaceVariant,
                 selected = currentRoute == item.screenRoute,
                 onClick = {
                     selectorXPointState.value = tabsPoint[index].dp
@@ -146,7 +144,7 @@ private fun SelectorUI(
                 offsetX = 0.dp,
             ),
         shape = MaterialTheme.shapes.small,
-        colors = CardDefaults.cardColors(contentColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.7f)),
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primary),
     ) {}
 }
 

@@ -7,7 +7,7 @@ import androidx.navigation.compose.composable
 import ir.alirezamp.designsystem.base.BaseViewModel
 import ir.alirezamp.navigation.Destinations
 import ir.alirezamp.news_list.ui.NewsRoute
-import ir.kaaveh.navigation.extension_function.navigate
+import ir.alirezamp.navigation.extension_function.navigate
 
 fun NavGraphBuilder.newsList(
     navController: NavController,
