@@ -40,6 +40,16 @@ android {
 }
 
 dependencies {
-    api(project(":library:designsystem"))
-    api(project(":components"))
+
+    val koinVersion: String by rootProject.extra
+    val koinVersionCompose: String by rootProject.extra
+
+    implementation(project(":library:designsystem"))
+    implementation(project(":components"))
+    implementation(project(":news:news-domain"))
+
+    // koin
+    implementation("io.insert-koin:koin-android:$koinVersion")
+    implementation("io.insert-koin:koin-androidx-navigation:$koinVersionCompose")
+    implementation("io.insert-koin:koin-androidx-compose:$koinVersionCompose")
 }

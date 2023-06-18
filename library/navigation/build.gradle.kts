@@ -18,8 +18,8 @@ android {
         release {
             isMinifyEnabled = false
             proguardFiles(
-                    getDefaultProguardFile("proguard-android-optimize.txt"),
-                    "proguard-rules.pro"
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
             )
         }
     }
@@ -39,6 +39,7 @@ android {
 }
 
 dependencies {
+    implementation(project(":library:designsystem"))
+    api(project(":news:ui-news-list")) // api for access news-list ktor module in app-module
     api("androidx.navigation:navigation-compose:2.5.3")
-    implementation(project(":news:ui-news-list"))
 }
