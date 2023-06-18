@@ -27,6 +27,7 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import ir.alirezamp.designsystem.theme.bottomNavigationSelector
 
 
 @Composable
@@ -143,7 +144,7 @@ private fun SelectorUI(
                 offsetY = 10.dp,
                 offsetX = 0.dp,
             ),
-        shape = MaterialTheme.shapes.small,
+        shape = MaterialTheme.shapes.bottomNavigationSelector,
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primary),
     ) {}
 }
