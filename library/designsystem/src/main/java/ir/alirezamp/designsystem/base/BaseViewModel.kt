@@ -31,8 +31,6 @@ open class BaseViewModel : ViewModel(), BaseContract {
         baseEffectChanel.trySend(BaseContract.BaseEffect.OnBackPressed)
     }
 
-    private fun onRetryPressed() {
-
-    }
+    open fun onRetryPressed() {}
 
 }

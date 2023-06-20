@@ -6,10 +6,8 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import ir.alirezamp.designsystem.collectInLaunchedEffect
-import ir.alirezamp.designsystem.useBase
-import ir.alirezamp.designsystem.widget.ErrorView
-import ir.alirezamp.designsystem.widget.LoadingView
+import ir.alirezamp.designsystem.util.collectInLaunchedEffect
+import ir.alirezamp.designsystem.util.useBase
 
 
 @Composable
@@ -33,16 +31,27 @@ fun BaseRoute(
     BaseScreen(
         baseState = baseState,
         content = content,
+        onRetry = {
+            baseEvent(BaseContract.BaseEvent.OnRetryPressed)
+        }
     )
 
 }
 
 @Composable
-fun BaseScreen(baseState: BaseContract.BaseState, content: @Composable () -> Unit) {
+fun BaseScreen(
+    baseState: BaseContract.BaseState,
+    content: @Composable () -> Unit,
+    onRetry: () -> Unit,
+) {
     Box(modifier = Modifier.fillMaxSize()) {
         when (baseState) {
-            BaseContract.BaseState.OnLoading -> LoadingView()
-            is BaseContract.BaseState.OnError -> ErrorView(baseState.message)
+            BaseContract.BaseState.OnLoading -> ir.alirezamp.components.widget.LoadingView()
+            is BaseContract.BaseState.OnError -> ir.alirezamp.components.widget.ErrorView(
+                baseState.message,
+                onRetry = onRetry
+            )
+
             BaseContract.BaseState.OnSuccess -> content()
         }
     }

@@ -39,5 +39,18 @@ android {
 }
 
 dependencies {
-    implementation(project(":library:designsystem"))
+    val composeBom: String by rootProject.extra
+    val coilCompose: String by rootProject.extra
+    val progressLib: String by rootProject.extra
+
+    api(project(":news:news-domain"))
+    implementation("io.coil-kt:coil-compose:$coilCompose")
+    api(platform("androidx.compose:compose-bom:$composeBom"))
+    api("androidx.compose.ui:ui")
+    api("androidx.compose.ui:ui-graphics")
+    api("androidx.compose.ui:ui-tooling-preview")
+    api("androidx.compose.material3:material3")
+
+    // progress
+    implementation("com.ehsanmsz:msz-progress-indicator:$progressLib")
 }

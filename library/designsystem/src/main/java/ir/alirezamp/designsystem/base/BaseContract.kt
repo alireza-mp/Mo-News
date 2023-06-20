@@ -1,6 +1,6 @@
 package ir.alirezamp.designsystem.base
 
-import ir.alirezamp.designsystem.BaseUniDirectionalViewModel
+import ir.alirezamp.designsystem.util.BaseUniDirectionalViewModel
 
 interface BaseContract :
     BaseUniDirectionalViewModel<BaseContract.BaseEvent, BaseContract.BaseEffect, BaseContract.BaseState> {
