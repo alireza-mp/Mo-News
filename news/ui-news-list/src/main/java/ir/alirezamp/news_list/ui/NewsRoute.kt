@@ -18,7 +18,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import ir.alirezamp.components.util.AppBarAction
 import ir.alirezamp.components.util.TabState
+import ir.alirezamp.components.widget.AppBar
 import ir.alirezamp.components.widget.TabRow
 import ir.alirezamp.designsystem.base.BaseViewModel
 import ir.alirezamp.news_list.ui.flowing_news.FlowingNewsScreen
@@ -51,6 +53,9 @@ private fun NewsScreen(
             .fillMaxSize()
             .background(color = MaterialTheme.colorScheme.surface)
     ) {
+
+        AppBar(actions = listOf(AppBarAction.NOTIFICATION, AppBarAction.FILTTER), onClick = {})
+
         Spacer(modifier = Modifier.padding(top = 16.dp))
         // tab row
         TabRow(

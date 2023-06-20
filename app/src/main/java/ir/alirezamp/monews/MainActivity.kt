@@ -48,39 +48,34 @@ class MainActivity : ComponentActivity() {
             val navBackStackEntry by navController.currentBackStackEntryAsState()
             val currentRoute = navBackStackEntry?.destination?.route
             /*val bottomNavVisible = */
+            val appbarVisible = false
 
             MoNewsTheme {
                 SetStatusBarColor()
                 Scaffold(
                     modifier = Modifier.fillMaxSize(),
-                    contentColor = MaterialTheme.colorScheme.background,
-                    /*   topBar = {
-                           TopAppBar(
-                               bottomNavController = bottomNavController,
-                           )
-                       },*/
+                    contentColor = MaterialTheme.colorScheme.surface,
                     bottomBar = {
                         AnimatedVisibility(
                             visible = true,
                             enter = slideInVertically { it },
                             exit = slideOutVertically { it },
                         ) {
+                            BottomNavigation(
+                                currentRoute = currentRoute ?: "",
+                                onItemClick = { newRoute ->
+                                    navController.navigate(newRoute) {
+                                        popUpTo(currentRoute ?: "") {
+                                            saveState = true
+                                            inclusive = true
 
-                        }
-                        BottomNavigation(
-                            currentRoute = currentRoute ?: "",
-                            onItemClick = { newRoute ->
-                                navController.navigate(newRoute) {
-                                    popUpTo(currentRoute ?: "") {
-                                        saveState = true
-                                        inclusive = true
-
+                                        }
+                                        launchSingleTop = true
+                                        restoreState = true
                                     }
-                                    launchSingleTop = true
-                                    restoreState = true
                                 }
-                            }
-                        )
+                            )
+                        }
                     }
                 ) {
                     BaseRoute(baseViewModel = baseViewModel) {
