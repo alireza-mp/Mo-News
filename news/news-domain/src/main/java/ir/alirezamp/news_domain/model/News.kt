@@ -2,7 +2,6 @@ package ir.alirezamp.news_domain.model
 
 data class News(
     val id: Int,
-    val newsId: Int,
     val description: String,
     val category: String,
     val imageUrl: String,

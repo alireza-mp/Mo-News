@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("org.jetbrains.kotlin.plugin.serialization")
 }
 
 android {
@@ -53,7 +54,6 @@ dependencies {
 
     implementation(project(":library:navigation"))
     implementation(project(":library:designsystem"))
-    implementation(project(":components"))
     implementation("androidx.core:core-ktx:1.10.1")
     implementation(platform("org.jetbrains.kotlin:kotlin-bom:1.8.10"))
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
@@ -64,12 +64,14 @@ dependencies {
 
     val koinVersion: String by rootProject.extra
     val koinVersionCompose: String by rootProject.extra
+    val accompanistSystemuicontroller: String by rootProject.extra
 
     // koin
     implementation("io.insert-koin:koin-android:$koinVersion")
     implementation("io.insert-koin:koin-androidx-navigation:$koinVersionCompose")
     implementation("io.insert-koin:koin-androidx-compose:$koinVersionCompose")
 
-    implementation("com.google.accompanist:accompanist-systemuicontroller:0.30.1")
+    // system ui controller
+    implementation("com.google.accompanist:accompanist-systemuicontroller:$accompanistSystemuicontroller")
 
 }

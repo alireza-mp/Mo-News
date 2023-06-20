@@ -9,7 +9,6 @@ android {
 
     defaultConfig {
         minSdk = 21
-        targetSdk = 33
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
@@ -19,8 +18,8 @@ android {
         release {
             isMinifyEnabled = false
             proguardFiles(
-                    getDefaultProguardFile("proguard-android-optimize.txt"),
-                    "proguard-rules.pro"
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
             )
         }
     }
@@ -34,5 +33,9 @@ android {
 }
 
 dependencies {
+    val koinVersion: String by rootProject.extra
 
+    api(project(":news:news-datasource"))
+    //koin
+    implementation("io.insert-koin:koin-android:$koinVersion")
 }
