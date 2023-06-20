@@ -9,7 +9,6 @@ android {
 
     defaultConfig {
         minSdk = 21
-        targetSdk = 33
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
@@ -45,8 +44,7 @@ dependencies {
     val koinVersionCompose: String by rootProject.extra
 
     implementation(project(":library:designsystem"))
-    implementation(project(":components"))
-    implementation(project(":news:news-domain"))
+    api(project(":news:news-interactors"))
 
     // koin
     implementation("io.insert-koin:koin-android:$koinVersion")

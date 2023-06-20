@@ -28,6 +28,7 @@ import androidx.core.view.ViewCompat
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import ir.alirezamp.designsystem.base.BaseRoute
 import ir.alirezamp.designsystem.base.BaseViewModel
 import ir.alirezamp.designsystem.theme.MoNewsTheme
 import ir.alirezamp.monews.navigation.ComposeNewsNavHost
@@ -82,17 +83,19 @@ class MainActivity : ComponentActivity() {
                         )
                     }
                 ) {
-                    Surface(
-                        modifier = Modifier.padding(it),
-                        color = MaterialTheme.colorScheme.background,
-                    ) {
-                        ComposeNewsNavHost(
-                            navController = navController,
-                            modifier = Modifier,
-                            onProvideBaseViewModel = { viewModel ->
-                                baseViewModel = viewModel
-                            }
-                        )
+                    BaseRoute(baseViewModel = baseViewModel) {
+                        Surface(
+                            modifier = Modifier.padding(it),
+                            color = MaterialTheme.colorScheme.background,
+                        ) {
+                            ComposeNewsNavHost(
+                                navController = navController,
+                                modifier = Modifier,
+                                onProvideBaseViewModel = { viewModel ->
+                                    baseViewModel = viewModel
+                                }
+                            )
+                        }
                     }
                 }
             }

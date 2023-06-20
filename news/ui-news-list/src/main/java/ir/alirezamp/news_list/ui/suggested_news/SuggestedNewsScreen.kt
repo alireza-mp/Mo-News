@@ -14,10 +14,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import ir.alirezamp.components.widget.HorizontalNewsItem
+import ir.alirezamp.components.widget.VerticalNewsItem
 import ir.alirezamp.designsystem.base.BaseViewModel
-import ir.alirezamp.designsystem.use
+import ir.alirezamp.designsystem.util.use
 import ir.alirezamp.news_list.components.ListTitle
-import kotlinx.coroutines.delay
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -28,7 +29,7 @@ fun SuggestedNewsScreen(
 ) {
     val (state, event) = use(viewModel = viewModel)
 
-    SuggestedNews(rNewsState = state)
+    SuggestedNews(state, onNavigateToNewsDetailScreen)
 
     LaunchedEffect(key1 = Unit) {
         onProvideBaseViewModel(viewModel)
@@ -39,7 +40,8 @@ fun SuggestedNewsScreen(
 
 @Composable
 private fun SuggestedNews(
-    rNewsState: SuggestedNewsContract.State,
+    state: SuggestedNewsContract.State,
+    onNavigateToNewsDetailScreen: (newsId: String) -> Unit,
 ) {
     Column(
         modifier = Modifier
@@ -73,18 +75,13 @@ private fun SuggestedNews(
                      )*/
                 .padding(start = 16.dp)
         ) {
-            itemsIndexed(items = rNewsState.hotNews, key = { _, item -> item.id }) { _, item ->
-                /*    HotNewsItem(
-                        model = item,
-                        onClick = {
-                            // navigate to news detail page
-                            navHostController.navigate(
-                                BottomNavigationScreens.NewsDetail.createNewsIdRoute(
-                                    newsId = item.newsId.toString(),
-                                ),
-                            )
-                        }
-                    )*/
+            itemsIndexed(items = state.hotNews, key = { _, item -> item.id }) { _, item ->
+                VerticalNewsItem(
+                    news = item,
+                    onNewsClick = { newsId ->
+                        onNavigateToNewsDetailScreen(newsId.toString())
+                    },
+                )
             }
         }
 
@@ -103,31 +100,28 @@ private fun SuggestedNews(
         Spacer(modifier = Modifier.padding(top = 8.dp))
 
         // favorite news list
-        rNewsState.favoriteNews.forEachIndexed { _, item ->
+        state.favoriteNews.forEachIndexed { _, item ->
+            HorizontalNewsItem(
+                news = item,
+                onItemClick = { newsId ->
+                    onNavigateToNewsDetailScreen(newsId.toString())
+                },
+            )
+
             /*     FavoriteNewsItem(
                      modifier = Modifier.padding(horizontal = 16.dp)
                          .alphaAnimation(
                              enabled = viewModel.isLaunchAnimation,
                              delay = 1000,
                              duration = 1000,
-                         ),
-                     model = item,
-                     onClick = {
-                         // navigate to news detail page
-                         navHostController.navigate(
-                             BottomNavigationScreens.NewsDetail.createNewsIdRoute(
-                                 newsId = item.newsId.toString(),
-                             ),
-                         )
-                     }
-                 )*/
+                         ),*/
         }
 
     }
 
     // disable first launch animation
     LaunchedEffect(Unit) {
-        delay(1200)
+        //  delay(1200)
         //  viewModel.isLaunchAnimation = false
     }
 }

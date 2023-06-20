@@ -1,4 +1,4 @@
-package ir.alirezamp.designsystem
+package ir.alirezamp.designsystem.util
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect

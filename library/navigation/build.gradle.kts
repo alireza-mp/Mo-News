@@ -39,7 +39,8 @@ android {
 }
 
 dependencies {
+    val navigationCompose: String by rootProject.extra
     implementation(project(":library:designsystem"))
-    api(project(":news:ui-news-list")) // api for access news-list ktor module in app-module
-    api("androidx.navigation:navigation-compose:2.5.3")
+    api(project(":news:ui-news-list"))
+    api("androidx.navigation:navigation-compose:$navigationCompose")
 }

@@ -18,8 +18,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import ir.alirezamp.components.TabRow
 import ir.alirezamp.components.util.TabState
+import ir.alirezamp.components.widget.TabRow
 import ir.alirezamp.designsystem.base.BaseViewModel
 import ir.alirezamp.news_list.ui.flowing_news.FlowingNewsScreen
 import ir.alirezamp.news_list.ui.suggested_news.SuggestedNewsScreen

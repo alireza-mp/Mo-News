@@ -39,14 +39,7 @@ android {
 }
 
 dependencies {
-
-    api(platform("androidx.compose:compose-bom:2023.05.01"))
-    api("androidx.compose.ui:ui")
-    api("androidx.compose.ui:ui-graphics")
-    api("androidx.compose.ui:ui-tooling-preview")
-    api("androidx.compose.material3:material3")
-    api("androidx.compose.material:material:material")
+    api(project(":components"))
     implementation("androidx.core:core:1.10.1")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1")
-
 }

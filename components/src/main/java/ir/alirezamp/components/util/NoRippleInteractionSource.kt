@@ -1,4 +1,4 @@
-package ir.alirezamp.designsystem.util
+package ir.alirezamp.components.util
 
 import androidx.compose.foundation.interaction.Interaction
 import androidx.compose.foundation.interaction.MutableInteractionSource
