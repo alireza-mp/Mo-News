@@ -6,14 +6,16 @@ import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.BottomNavigation
-import androidx.compose.material.BottomNavigationItem
-import androidx.compose.material.Icon
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -79,12 +81,15 @@ private fun Content(
 
     val selectorXPointState = remember { mutableStateOf(tabsPoint[0].dp) }
 
-    BottomNavigation(
+    NavigationBar(
         modifier = Modifier.fillMaxWidth(),
-        backgroundColor = MaterialTheme.colorScheme.surfaceVariant
+        containerColor = MaterialTheme.colorScheme.surfaceVariant,
     ) {
         items.forEachIndexed { index, item ->
-            BottomNavigationItem(
+            NavigationBarItem(
+                modifier = Modifier.height(60.dp),
+                alwaysShowLabel = false,
+                interactionSource = ir.alirezamp.components.util.NoRippleInteractionSource(),
                 icon = {
                     if (index == enabledIndex) {
                         Image(
@@ -98,8 +103,11 @@ private fun Content(
                         )
                     }
                 },
-                selectedContentColor = MaterialTheme.colorScheme.primary,
-                unselectedContentColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                colors = NavigationBarItemDefaults.colors(
+                    selectedIconColor = MaterialTheme.colorScheme.primary,
+                    unselectedIconColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                    indicatorColor = MaterialTheme.colorScheme.surfaceVariant,
+                ),
                 selected = currentRoute == item.screenRoute,
                 onClick = {
                     selectorXPointState.value = tabsPoint[index].dp

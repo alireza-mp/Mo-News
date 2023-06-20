@@ -1,4 +1,4 @@
-package ir.alirezamp.components
+package ir.alirezamp.components.widget
 
 
 import androidx.compose.animation.animateColorAsState
@@ -14,16 +14,17 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.material.Card
-import androidx.compose.material.Text
-import androidx.compose.material.TextButton
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import ir.alirezamp.components.util.NoRippleInteractionSource
 import ir.alirezamp.components.util.TabState
-import ir.alirezamp.designsystem.util.NoRippleInteractionSource
 
 
 @Composable
@@ -36,7 +37,7 @@ fun TabRow(
         modifier = modifier
             .fillMaxWidth()
             .height(50.dp),
-        backgroundColor = MaterialTheme.colorScheme.secondary,
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.secondary),
         shape = MaterialTheme.shapes.medium,
     ) {
         BoxWithConstraints(
@@ -77,7 +78,7 @@ fun TabRow(
                         x = inductorXAnim, // update inductor x offset
                         y = 0.dp,
                     ),
-                backgroundColor = MaterialTheme.colorScheme.primary,
+                colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primary),
                 shape = MaterialTheme.shapes.medium,
             ) {}
             // titles
