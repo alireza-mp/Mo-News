@@ -44,7 +44,7 @@ dependencies {
     val progressLib: String by rootProject.extra
 
     api(project(":news:news-domain"))
-    implementation("io.coil-kt:coil-compose:$coilCompose")
+    api("io.coil-kt:coil-compose:$coilCompose")
     api(platform("androidx.compose:compose-bom:$composeBom"))
     api("androidx.compose.ui:ui")
     api("androidx.compose.ui:ui-graphics")

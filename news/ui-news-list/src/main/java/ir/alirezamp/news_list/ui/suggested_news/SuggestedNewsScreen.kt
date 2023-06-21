@@ -25,14 +25,16 @@ import org.koin.androidx.compose.koinViewModel
 fun SuggestedNewsScreen(
     viewModel: SuggestedNewsViewModel = koinViewModel(),
     onNavigateToNewsDetailScreen: (newsId: String) -> Unit,
-    onProvideBaseViewModel: (baseViewModel: BaseViewModel) -> Unit,
+    onProvideBaseViewModel: ((baseViewModel: BaseViewModel) -> Unit)? = null,
 ) {
     val (state, event) = use(viewModel = viewModel)
 
     SuggestedNews(state, onNavigateToNewsDetailScreen)
 
     LaunchedEffect(key1 = Unit) {
-        onProvideBaseViewModel(viewModel)
+        onProvideBaseViewModel?.let {
+            onProvideBaseViewModel(viewModel)
+        }
     }
 
 }

@@ -30,10 +30,12 @@ import kotlinx.coroutines.launch
 @Composable
 fun NewsRoute(
     onNavigateToNewsDetailScreen: (newsId: String) -> Unit,
+    onNavigateToPublisherDetailScreen: (publisherId: String) -> Unit,
     onProvideBaseViewModel: (baseViewModel: BaseViewModel) -> Unit,
 ) {
     NewsScreen(
         onNavigateToNewsDetailScreen,
+        onNavigateToPublisherDetailScreen,
         onProvideBaseViewModel,
     )
 
@@ -42,11 +44,13 @@ fun NewsRoute(
 @Composable
 private fun NewsScreen(
     onNavigateToNewsDetailScreen: (newsId: String) -> Unit,
+    onNavigateToPublisherDetailScreen: (publisherId: String) -> Unit,
     onProvideBaseViewModel: (baseViewModel: BaseViewModel) -> Unit,
 ) {
     val tabState = remember { mutableStateOf(TabState.Suggested) }
     val pagerState = rememberPagerState()
     val coroutineScope = rememberCoroutineScope()
+    val currentPage = remember { pagerState.currentPage }
     // header
     Column(
         modifier = Modifier
@@ -54,7 +58,7 @@ private fun NewsScreen(
             .background(color = MaterialTheme.colorScheme.surface)
     ) {
 
-        AppBar(actions = listOf(AppBarAction.NOTIFICATION, AppBarAction.FILTTER), onClick = {})
+        AppBar(actions = listOf(AppBarAction.NOTIFICATION), onClick = {})
 
         Spacer(modifier = Modifier.padding(top = 16.dp))
         // tab row
@@ -69,24 +73,30 @@ private fun NewsScreen(
         )
 
         Spacer(modifier = Modifier.padding(top = 12.dp))
+
         // pager
         HorizontalPager(
             modifier = Modifier.fillMaxSize(),
             pageCount = 2,
+            pageSpacing = 1.dp,
+            beyondBoundsPageCount = 1,
             state = pagerState,
         ) { page ->
             when (page) {
                 0 -> {
                     SuggestedNewsScreen(
                         onNavigateToNewsDetailScreen = onNavigateToNewsDetailScreen,
-                        onProvideBaseViewModel = onProvideBaseViewModel,
+                        onProvideBaseViewModel = if (currentPage == 0)
+                            onProvideBaseViewModel else null,
                     )
                 }
 
                 1 -> {
                     FlowingNewsScreen(
                         onNavigateToNewsDetailScreen = onNavigateToNewsDetailScreen,
-                        onProvideBaseViewModel = onProvideBaseViewModel,
+                        onNavigateToPublisherDetailScreen = onNavigateToPublisherDetailScreen,
+                        onProvideBaseViewModel = if (currentPage == 1)
+                            onProvideBaseViewModel else null,
                     )
                 }
             }

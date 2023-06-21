@@ -26,34 +26,35 @@ class SuggestedNewsViewModel(
     }
 
     private fun getData() {
-        mutableBaseState.update {
-            BaseContract.BaseState.OnLoading
-        }
-        viewModelScope.launch(Dispatchers.IO) {
-            val hotNews = getHotNews()
-            val favoriteNews = getFavoriteNews()
-            when {
-                hotNews is DataState.Success && favoriteNews is DataState.Success -> {
-                    mutableState.update {
-                        SuggestedNewsContract.State(
-                            hotNews = hotNews.data ?: listOf(),
-                            favoriteNews = favoriteNews.data ?: listOf(),
-                        )
-                    }
-                    mutableBaseState.update {
-                        BaseContract.BaseState.OnSuccess
-                    }
+        if (state.value.hotNews.isEmpty())
+            viewModelScope.launch(Dispatchers.IO) {
+                mutableBaseState.update {
+                    BaseContract.BaseState.OnLoading
                 }
+                val hotNews = getHotNews()
+                val favoriteNews = getFavoriteNews()
+                when {
+                    hotNews is DataState.Success && favoriteNews is DataState.Success -> {
+                        mutableState.update {
+                            SuggestedNewsContract.State(
+                                hotNews = hotNews.data ?: listOf(),
+                                favoriteNews = favoriteNews.data ?: listOf(),
+                            )
+                        }
+                        mutableBaseState.update {
+                            BaseContract.BaseState.OnSuccess
+                        }
+                    }
 
-                hotNews is DataState.Error || favoriteNews is DataState.Error -> {
-                    mutableBaseState.update {
-                        BaseContract.BaseState.OnError(
-                            message = hotNews.message ?: favoriteNews.message ?: "unknown"
-                        )
+                    hotNews is DataState.Error || favoriteNews is DataState.Error -> {
+                        mutableBaseState.update {
+                            BaseContract.BaseState.OnError(
+                                message = hotNews.message ?: favoriteNews.message ?: "unknown"
+                            )
+                        }
                     }
                 }
             }
-        }
     }
 
     override fun event(event: SuggestedNewsContract.Event) = when (event) {

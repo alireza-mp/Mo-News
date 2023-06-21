@@ -5,8 +5,13 @@ sealed class Destinations(
     val enabledBottomNavigationRoute: String = route,
 ) {
     object NewsListScreen : Destinations("news_list_screen")
-    data class NewsDetailScreen(val newsId: String = "news") : Destinations(
+    data class NewsDetailScreen(val newsId: String = "") : Destinations(
         "news_detail_screen",
+        NewsListScreen.route,
+    )
+
+    data class PublisherDetailScreen(val publisherId: String = "") : Destinations(
+        "publisher_detail_screen",
         NewsListScreen.route,
     )
 
@@ -19,6 +24,7 @@ fun String.findDestinations(): Destinations? {
         Destinations.NewsListScreen.route -> Destinations.NewsListScreen//
         Destinations.FavoriteNewsScreen.route -> Destinations.NewsListScreen//
         Destinations.NewsDetailScreen().route -> Destinations.NewsListScreen//
+        Destinations.PublisherDetailScreen().route -> Destinations.NewsListScreen//
         else -> null
     }
 }
