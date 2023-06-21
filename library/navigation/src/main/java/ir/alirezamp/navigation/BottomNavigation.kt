@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -29,6 +30,7 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import ir.alirezamp.components.util.NoRippleInteractionSource
 import ir.alirezamp.designsystem.theme.bottomNavigationSelector
 
 
@@ -82,14 +84,16 @@ private fun Content(
     val selectorXPointState = remember { mutableStateOf(tabsPoint[0].dp) }
 
     NavigationBar(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 4.dp),
         containerColor = MaterialTheme.colorScheme.surfaceVariant,
     ) {
         items.forEachIndexed { index, item ->
             NavigationBarItem(
                 modifier = Modifier.height(60.dp),
                 alwaysShowLabel = false,
-                interactionSource = ir.alirezamp.components.util.NoRippleInteractionSource(),
+                interactionSource = NoRippleInteractionSource(),
                 icon = {
                     if (index == enabledIndex) {
                         Image(
