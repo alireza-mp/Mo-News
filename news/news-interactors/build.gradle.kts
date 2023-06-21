@@ -33,9 +33,6 @@ android {
 }
 
 dependencies {
-    val koinVersion: String by rootProject.extra
-
+    implementation(project(":publisher:publisher-datasource"))
     api(project(":news:news-datasource"))
-    //koin
-    implementation("io.insert-koin:koin-android:$koinVersion")
 }

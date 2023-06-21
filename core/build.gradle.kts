@@ -9,7 +9,6 @@ android {
 
     defaultConfig {
         minSdk = 21
-        targetSdk = 33
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
@@ -19,8 +18,8 @@ android {
         release {
             isMinifyEnabled = false
             proguardFiles(
-                    getDefaultProguardFile("proguard-android-optimize.txt"),
-                    "proguard-rules.pro"
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
             )
         }
     }
@@ -35,4 +34,22 @@ android {
 
 dependencies {
 
+    api(project(":constants"))
+
+    val ktorVersion: String by rootProject.extra
+    val kotlinxSerialization: String by rootProject.extra
+    val koinVersion: String by rootProject.extra
+    val logback: String by rootProject.extra
+
+    //ktor
+    api("io.ktor:ktor-client-core:$ktorVersion")
+    api("io.ktor:ktor-client-android:$ktorVersion")
+    api("io.ktor:ktor-client-content-negotiation:$ktorVersion")
+    api("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
+    api("io.ktor:ktor-client-logging:$ktorVersion")
+    api("ch.qos.logback:logback-classic:$logback")
+    api("org.jetbrains.kotlinx:kotlinx-serialization-json:$kotlinxSerialization")
+
+    //koin
+    api("io.insert-koin:koin-android:$koinVersion")
 }

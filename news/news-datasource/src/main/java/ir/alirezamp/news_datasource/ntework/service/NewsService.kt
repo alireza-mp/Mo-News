@@ -1,6 +1,7 @@
 package ir.alirezamp.news_datasource.ntework.service
 
 import ir.alirezamp.news_datasource.ntework.dto.NewsDto
+import ir.alirezamp.news_datasource.ntework.dto.PublisherNewsDto
 
 interface NewsService {
 
@@ -9,5 +10,6 @@ interface NewsService {
     suspend fun getFavoriteNews(): List<NewsDto>?
 
     suspend fun getEditorSuggestionNews(): List<NewsDto>?
+    suspend fun getPublisherNews(): List<PublisherNewsDto>?
 
 }

@@ -35,4 +35,5 @@ android {
 
 dependencies {
     api(project(":core"))
+    api(project(":publisher:publisher-domain"))
 }

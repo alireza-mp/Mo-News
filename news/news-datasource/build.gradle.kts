@@ -34,24 +34,6 @@ android {
 }
 
 dependencies {
-    val ktorVersion: String by rootProject.extra
-    val kotlinxSerialization: String by rootProject.extra
-    val koinVersion: String by rootProject.extra
-    val logback: String by rootProject.extra
-
-    dependencies {
-        api(project(":news:news-domain"))
-
-        //ktor
-        api("io.ktor:ktor-client-core:$ktorVersion")
-        api("io.ktor:ktor-client-android:$ktorVersion")
-        api("io.ktor:ktor-client-content-negotiation:$ktorVersion")
-        api("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
-        api("io.ktor:ktor-client-logging:$ktorVersion")
-        api("ch.qos.logback:logback-classic:$logback")
-        api("org.jetbrains.kotlinx:kotlinx-serialization-json:$kotlinxSerialization")
-
-        //koin
-        implementation("io.insert-koin:koin-android:$koinVersion")
-    }
+    implementation(project(":publisher:publisher-datasource"))
+    api(project(":news:news-domain"))
 }

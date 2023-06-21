@@ -24,6 +24,10 @@
             <option value="$PROJECT_DIR$/news/ui-news-detail" />
             <option value="$PROJECT_DIR$/news/ui-news-favorite" />
             <option value="$PROJECT_DIR$/news/ui-news-list" />
+            <option value="$PROJECT_DIR$/publisher" />
+            <option value="$PROJECT_DIR$/publisher/publisher-datasource" />
+            <option value="$PROJECT_DIR$/publisher/publisher-domain" />
+            <option value="$PROJECT_DIR$/publisher/publisher-interactors" />
           </set>
         </option>
       </GradleProjectSettings>
