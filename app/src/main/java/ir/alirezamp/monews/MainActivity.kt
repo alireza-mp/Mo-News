@@ -31,7 +31,7 @@ import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import ir.alirezamp.designsystem.base.BaseRoute
 import ir.alirezamp.designsystem.base.BaseViewModel
 import ir.alirezamp.designsystem.theme.MoNewsTheme
-import ir.alirezamp.monews.navigation.ComposeNewsNavHost
+import ir.alirezamp.monews.navigation.MoNewsNavHost
 import ir.alirezamp.navigation.BottomNavigation
 import java.util.Locale
 
@@ -83,7 +83,7 @@ class MainActivity : ComponentActivity() {
                             modifier = Modifier.padding(it),
                             color = MaterialTheme.colorScheme.background,
                         ) {
-                            ComposeNewsNavHost(
+                            MoNewsNavHost(
                                 navController = navController,
                                 modifier = Modifier,
                                 onProvideBaseViewModel = { viewModel ->

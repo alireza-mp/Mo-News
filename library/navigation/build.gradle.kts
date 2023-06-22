@@ -42,5 +42,6 @@ dependencies {
     val navigationCompose: String by rootProject.extra
     implementation(project(":library:designsystem"))
     api(project(":news:ui-news-list"))
+    api(project(":discover:ui-discover-details"))
     api("androidx.navigation:navigation-compose:$navigationCompose")
 }

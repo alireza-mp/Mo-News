@@ -39,7 +39,15 @@ android {
 }
 
 dependencies {
+    val koinVersion: String by rootProject.extra
+    val koinVersionCompose: String by rootProject.extra
+
     api(project(":components"))
     implementation("androidx.core:core:1.10.1")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1")
+
+    //koin
+    api("io.insert-koin:koin-android:$koinVersion")
+    api("io.insert-koin:koin-androidx-navigation:$koinVersionCompose")
+    api("io.insert-koin:koin-androidx-compose:$koinVersionCompose")
 }

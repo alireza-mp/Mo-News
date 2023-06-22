@@ -21,8 +21,8 @@ import androidx.compose.ui.unit.dp
 import ir.alirezamp.components.util.AppBarAction
 import ir.alirezamp.components.util.TabState
 import ir.alirezamp.components.widget.AppBar
-import ir.alirezamp.components.widget.TabRow
 import ir.alirezamp.designsystem.base.BaseViewModel
+import ir.alirezamp.news_list.components.TabRow
 import ir.alirezamp.news_list.ui.flowing_news.FlowingNewsScreen
 import ir.alirezamp.news_list.ui.suggested_news.SuggestedNewsScreen
 import kotlinx.coroutines.launch

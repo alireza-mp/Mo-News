@@ -18,7 +18,7 @@ sealed class BottomNavigationTabs(
         BottomNavigationTabs(
             icon = R.drawable.ic_discover,
             enabledIcon = R.drawable.ic_discover_enabled,
-            screenRoute = Destinations.NewsListScreen.route,
+            screenRoute = Destinations.DiscoverScreen.route,
         )
 
     object AddNew :

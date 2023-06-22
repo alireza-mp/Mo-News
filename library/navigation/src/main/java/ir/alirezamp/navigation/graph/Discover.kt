@@ -7,25 +7,19 @@ import androidx.navigation.compose.composable
 import ir.alirezamp.designsystem.base.BaseViewModel
 import ir.alirezamp.navigation.Destinations
 import ir.alirezamp.navigation.extension_function.navigate
-import ir.alirezamp.news_list.ui.NewsRoute
+import ir.alirezamp.ui_discover_details.ui.DiscoverRoute
 
-fun NavGraphBuilder.newsList(
+fun NavGraphBuilder.discover(
     navController: NavController,
     onProvideBaseViewModel: (baseViewModel: BaseViewModel) -> Unit,
 ) {
 
-    composable(Destinations.NewsListScreen.route) {
-        NewsRoute(
+    composable(Destinations.DiscoverScreen.route) {
+        DiscoverRoute(
             onNavigateToNewsDetailScreen = { newsId ->
                 navController.navigate(
                     route = Destinations.NewsDetailScreen().route,
                     args = bundleOf(Destinations.NewsDetailScreen().newsId to newsId)
-                )
-            },
-            onNavigateToPublisherDetailScreen = { publisherId ->
-                navController.navigate(
-                    route = Destinations.PublisherDetailScreen().route,
-                    args = bundleOf(Destinations.PublisherDetailScreen().publisherId to publisherId)
                 )
             },
             onProvideBaseViewModel = {
