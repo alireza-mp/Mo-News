@@ -1,4 +1,4 @@
-package ir.alirezamp.components.widget
+package ir.alirezamp.news_list.components
 
 
 import androidx.compose.animation.animateColorAsState

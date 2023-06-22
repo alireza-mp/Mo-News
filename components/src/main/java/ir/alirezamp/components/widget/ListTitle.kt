@@ -1,4 +1,4 @@
-package ir.alirezamp.news_list.components
+package ir.alirezamp.components.widget
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row

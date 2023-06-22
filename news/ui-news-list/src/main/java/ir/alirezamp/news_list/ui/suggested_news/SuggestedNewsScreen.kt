@@ -15,10 +15,10 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import ir.alirezamp.components.widget.HorizontalNewsItem
+import ir.alirezamp.components.widget.ListTitle
 import ir.alirezamp.components.widget.VerticalNewsItem
 import ir.alirezamp.designsystem.base.BaseViewModel
 import ir.alirezamp.designsystem.util.use
-import ir.alirezamp.news_list.components.ListTitle
 import org.koin.androidx.compose.koinViewModel
 
 @Composable

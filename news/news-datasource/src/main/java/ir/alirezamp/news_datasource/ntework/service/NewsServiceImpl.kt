@@ -59,7 +59,7 @@ class NewsServiceImpl(
 
     override suspend fun getPublisherNews(): List<PublisherNewsDto>? {
         return try {
-            val result = client.get(EndPoints.PublisherNews)
+            val result = client.get(EndPoints.PUBLISHER_NEWS)
             if (result.status == HttpStatusCode.OK) {
                 return result.body<List<PublisherNewsDto>>()
             } else null
