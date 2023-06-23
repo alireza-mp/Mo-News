@@ -1,12 +1,10 @@
 package ir.alirezamp.navigation.graph
 
-import androidx.core.os.bundleOf
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import ir.alirezamp.designsystem.base.BaseViewModel
 import ir.alirezamp.navigation.Destinations
-import ir.alirezamp.navigation.extension_function.navigate
 import ir.alirezamp.ui_discover_details.ui.DiscoverRoute
 
 fun NavGraphBuilder.discover(
@@ -18,8 +16,10 @@ fun NavGraphBuilder.discover(
         DiscoverRoute(
             onNavigateToNewsDetailScreen = { newsId ->
                 navController.navigate(
-                    route = Destinations.NewsDetailScreen().route,
-                    args = bundleOf(Destinations.NewsDetailScreen().newsId to newsId)
+                    Destinations.NewsDetailScreen()
+                        .createNewsIdRoute(
+                            newsId = newsId
+                        )
                 )
             },
             onProvideBaseViewModel = {

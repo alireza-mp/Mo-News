@@ -43,5 +43,6 @@ dependencies {
     implementation(project(":library:designsystem"))
     api(project(":news:ui-news-list"))
     api(project(":discover:ui-discover-details"))
+    api(project(":news:ui-news-detail"))
     api("androidx.navigation:navigation-compose:$navigationCompose")
 }

@@ -6,15 +6,20 @@ sealed class Destinations(
 ) {
     object NewsListScreen : Destinations("news_list_screen")
     object DiscoverScreen : Destinations("discover_screen")
-    data class NewsDetailScreen(val newsId: String = "") : Destinations(
-        "news_detail_screen",
+    class NewsDetailScreen : Destinations(
+        "news_detail_screen/{newsId}",
         NewsListScreen.route,
-    )
+    ) {
+        fun createNewsIdRoute(newsId: String): String = "news_detail_screen/$newsId"
+    }
 
-    data class PublisherDetailScreen(val publisherId: String = "") : Destinations(
-        "publisher_detail_screen",
+    class PublisherDetailScreen : Destinations(
+        "publisher_detail_screen/{publisherId}",
         NewsListScreen.route,
-    )
+    ) {
+        fun createPublisherIdRoute(publisherId: String): String =
+            "publisher_detail_screen/$publisherId"
+    }
 
     object FavoriteNewsScreen : Destinations("favorite_news_screen")
 }
@@ -22,11 +27,11 @@ sealed class Destinations(
 // find destination by route
 fun String.findDestinations(): Destinations? {
     return when (this) {
-        Destinations.NewsListScreen.route -> Destinations.NewsListScreen//
-        Destinations.DiscoverScreen.route -> Destinations.DiscoverScreen//
-        Destinations.FavoriteNewsScreen.route -> Destinations.NewsListScreen//
-        Destinations.NewsDetailScreen().route -> Destinations.NewsListScreen//
-        Destinations.PublisherDetailScreen().route -> Destinations.NewsListScreen//
+        Destinations.NewsListScreen.route -> Destinations.NewsListScreen
+        Destinations.DiscoverScreen.route -> Destinations.DiscoverScreen
+        Destinations.FavoriteNewsScreen.route -> Destinations.NewsListScreen
+        Destinations.NewsDetailScreen().route -> Destinations.NewsListScreen
+        Destinations.PublisherDetailScreen().route -> Destinations.NewsListScreen
         else -> null
     }
 }

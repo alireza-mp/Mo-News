@@ -9,6 +9,7 @@ import ir.alirezamp.designsystem.base.BaseViewModel
 import ir.alirezamp.navigation.Destinations
 import ir.alirezamp.navigation.graph.discover
 import ir.alirezamp.navigation.graph.news
+import ir.alirezamp.navigation.graph.newsDetail
 
 
 @Composable
@@ -24,7 +25,6 @@ fun MoNewsNavHost(
     ) {
         news(navController, onProvideBaseViewModel)
         discover(navController, onProvideBaseViewModel)
-        /* favoriteNews(navController, onProvideBaseViewModel)
-         newsDetail(onProvideBaseViewModel)*/
+        newsDetail(onProvideBaseViewModel)
     }
 }
