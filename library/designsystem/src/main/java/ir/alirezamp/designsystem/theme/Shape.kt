@@ -16,3 +16,7 @@ val Shapes = Shapes(
 val Shapes.bottomNavigationSelector: Shape
     @Composable
     get() = RoundedCornerShape(bottomStart = 16.dp, bottomEnd = 16.dp)
+
+val Shapes.cardTopRoundedCorner: Shape
+    @Composable
+    get() = RoundedCornerShape(topStart = 30.dp, topEnd = 30.dp)

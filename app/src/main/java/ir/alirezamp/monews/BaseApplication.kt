@@ -10,6 +10,7 @@ import ir.alirezamp.news_list.di.newsListModule
 import ir.alirezamp.publisher_datasource.network.di.publisherNetworkModule
 import ir.alirezamp.publisher_interactors.di.publisherInteractorsModule
 import ir.alirezamp.ui_discover_details.di.discoverModule
+import ir.alirezamp.ui_news_detail.di.newsDetailModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
@@ -29,6 +30,7 @@ class BaseApplication : Application() {
                 discoverInteractorsModule,
                 publisherNetworkModule,
                 publisherInteractorsModule,
+                newsDetailModule,
             )
         }
     }
