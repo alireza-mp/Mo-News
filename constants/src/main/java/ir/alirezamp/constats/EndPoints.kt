@@ -8,4 +8,5 @@ object EndPoints {
     const val PUBLISHERS = BASE_API_URL + "publishers.php" // list of publishers
     const val DISCOVER_DETAILS = BASE_API_URL + "discover.php" // list of publishers
     const val CATEGORIES = BASE_API_URL + "categories.php" // list of publishers
+    fun newsDetail(newsId: String): String = "$BASE_API_URL$newsId/detail.php"
 }

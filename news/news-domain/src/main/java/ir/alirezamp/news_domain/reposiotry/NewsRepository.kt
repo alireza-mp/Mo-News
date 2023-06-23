@@ -2,6 +2,7 @@ package ir.alirezamp.news_domain.reposiotry
 
 import ir.alirezamp.core.domain.DataState
 import ir.alirezamp.news_domain.model.News
+import ir.alirezamp.news_domain.model.NewsDetail
 import ir.alirezamp.news_domain.model.PublisherNews
 
 interface NewsRepository {
@@ -14,4 +15,5 @@ interface NewsRepository {
 
     suspend fun getPublisherNews(): DataState<List<PublisherNews>>
 
+    suspend fun getNewsDetail(newsId: String): DataState<NewsDetail>
 }

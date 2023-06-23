@@ -6,6 +6,7 @@ import io.ktor.client.request.get
 import io.ktor.client.request.parameter
 import io.ktor.http.HttpStatusCode
 import ir.alirezamp.constats.EndPoints
+import ir.alirezamp.news_datasource.ntework.dto.NewsDetailDto
 import ir.alirezamp.news_datasource.ntework.dto.NewsDto
 import ir.alirezamp.news_datasource.ntework.dto.PublisherNewsDto
 import kotlinx.coroutines.delay
@@ -62,6 +63,18 @@ class NewsServiceImpl(
             val result = client.get(EndPoints.PUBLISHER_NEWS)
             if (result.status == HttpStatusCode.OK) {
                 return result.body<List<PublisherNewsDto>>()
+            } else null
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
+        }
+    }
+
+    override suspend fun getNewsDetail(newsId: String): NewsDetailDto? {
+        return try {
+            val result = client.get(EndPoints.newsDetail(newsId))
+            if (result.status == HttpStatusCode.OK) {
+                return result.body<NewsDetailDto>()
             } else null
         } catch (e: Exception) {
             e.printStackTrace()
