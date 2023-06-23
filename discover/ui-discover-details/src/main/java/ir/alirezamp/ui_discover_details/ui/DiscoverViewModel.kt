@@ -1,12 +1,15 @@
 package ir.alirezamp.ui_discover_details.ui
 
+import androidx.compose.runtime.toMutableStateList
 import androidx.lifecycle.viewModelScope
 import ir.alirezamp.core.domain.DataState
 import ir.alirezamp.designsystem.base.BaseContract
 import ir.alirezamp.designsystem.base.BaseViewModel
+import ir.alirezamp.discover_domain.model.allCategory
 import ir.alirezamp.discover_domain.usecase.GetCategoriseUseCase
 import ir.alirezamp.discover_domain.usecase.GetDiscoverDetailsUseCase
 import ir.alirezamp.news_domain.usecase.GetEditorSuggestionNewsUseCase
+import ir.alirezamp.publisher_domain.model.Publisher
 import ir.alirezamp.publisher_domain.usecase.GetPublishersUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -24,6 +27,8 @@ class DiscoverViewModel(
 
     private val mutableState = MutableStateFlow(DiscoverContract.State())
     override val state: StateFlow<DiscoverContract.State> get() = mutableState.asStateFlow()
+
+    private val publishersList = mutableListOf<Publisher>()
 
     init {
         getData()
@@ -48,11 +53,13 @@ class DiscoverViewModel(
                         mutableState.update {
                             DiscoverContract.State(
                                 discoverDetail = discoverDetails.data,
-                                publishers = publishers.data ?: emptyList(),
+                                publishers = publishers.data
+                                    ?: listOf(),
                                 news = news.data ?: emptyList(),
                                 categories = categories.data ?: emptyList(),
                             )
                         }
+                        publishersList.addAll(publishers.data?.toList() ?: listOf())
                     }
 
                     discoverDetails is DataState.Error || news is DataState.Error ||
@@ -64,8 +71,38 @@ class DiscoverViewModel(
             }
     }
 
-    override fun event(event: DiscoverContract.Event) {
+    override fun event(event: DiscoverContract.Event) = when (event) {
+        is DiscoverContract.Event.OnCategoryClick -> updateSelectedCategory(id = event.id)
+        is DiscoverContract.Event.ChangePublisherFlowing -> changePublisherFlowing(
+            id = event.id,
+            state = event.state
+        )
 
+        is DiscoverContract.Event.UpdateCount -> updateCount()
+    }
+
+    private fun changePublisherFlowing(id: Int, state: Boolean) {
+        val newsList = mutableState.value.publishers
+        newsList.find { it.id == id }?.flowing?.value = state
+        mutableState.value = mutableState.value.copy(publishers = newsList)
+    }
+
+    private fun updateSelectedCategory(id: Int) {
+
+        val filteredList = if (id != allCategory.id) {
+            publishersList.filter { it.categoryId == id }
+        } else publishersList
+
+        mutableState.value = mutableState.value.copy(
+            selectedCategoryId = id,
+            publishers = filteredList.toMutableStateList(),
+        )
+    }
+
+    private fun updateCount() {
+        mutableState.value = mutableState.value.copy(
+            count = mutableState.value.count + 1
+        )
     }
 
     override fun onRetryPressed() {

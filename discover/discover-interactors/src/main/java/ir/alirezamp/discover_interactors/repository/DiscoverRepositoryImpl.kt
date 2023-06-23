@@ -5,6 +5,7 @@ import ir.alirezamp.discover_datasource.network.mapper.mapToDomainModel
 import ir.alirezamp.discover_datasource.network.service.DiscoverDatasource
 import ir.alirezamp.discover_domain.model.Category
 import ir.alirezamp.discover_domain.model.DiscoverDetail
+import ir.alirezamp.discover_domain.model.allCategory
 import ir.alirezamp.discover_domain.reposiotry.DiscoverRepository
 
 class DiscoverRepositoryImpl(
@@ -21,7 +22,11 @@ class DiscoverRepositoryImpl(
     override suspend fun getCategories(): DataState<List<Category>> {
         val response = discoverDatasource.getCategories()
         return response?.let {
-            DataState.Success(response.map { it.mapToDomainModel() })
+            val categories = response.map { categoryDto ->
+                categoryDto.mapToDomainModel()
+            }.toMutableList()
+            categories.add(0, allCategory)
+            DataState.Success(categories)
         } ?: DataState.Error(message = "unknown error")
     }
 }
