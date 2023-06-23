@@ -11,7 +11,7 @@ interface FlowingNewsContract :
     )
 
     sealed class Event {
-        object getPbulisherNewsList : Event()
+        object GetPublisherNewsList : Event()
     }
 
 }

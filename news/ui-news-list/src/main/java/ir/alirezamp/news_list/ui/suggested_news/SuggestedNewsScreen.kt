@@ -12,15 +12,20 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.Stable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import ir.alirezamp.components.util.ImmutableList
 import ir.alirezamp.components.widget.HorizontalNewsItem
 import ir.alirezamp.components.widget.ListTitle
 import ir.alirezamp.components.widget.VerticalNewsItem
 import ir.alirezamp.designsystem.base.BaseViewModel
 import ir.alirezamp.designsystem.util.use
+import ir.alirezamp.news_domain.model.News
 import org.koin.androidx.compose.koinViewModel
 
+@Stable
 @Composable
 fun SuggestedNewsScreen(
     viewModel: SuggestedNewsViewModel = koinViewModel(),
@@ -29,7 +34,7 @@ fun SuggestedNewsScreen(
 ) {
     val (state, event) = use(viewModel = viewModel)
 
-    SuggestedNews(state, onNavigateToNewsDetailScreen)
+    SuggestedNews(state, event, onNavigateToNewsDetailScreen)
 
     LaunchedEffect(key1 = Unit) {
         onProvideBaseViewModel?.let {
@@ -43,8 +48,12 @@ fun SuggestedNewsScreen(
 @Composable
 private fun SuggestedNews(
     state: SuggestedNewsContract.State,
+    event: (SuggestedNewsContract.Event) -> Unit,
     onNavigateToNewsDetailScreen: (newsId: String) -> Unit,
 ) {
+    val onNewsClick =
+        remember<(id: Int) -> Unit> { { onNavigateToNewsDetailScreen(it.toString()) } }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -66,26 +75,7 @@ private fun SuggestedNews(
 
         Spacer(modifier = Modifier.padding(top = 8.dp))
 
-        // hot news list
-        LazyRow(
-            modifier = Modifier
-                .fillMaxWidth()
-                /*     .alphaAnimation(
-                         enabled = viewModel.isLaunchAnimation,
-                         delay = 500,
-                         duration = 1000,
-                     )*/
-                .padding(start = 16.dp)
-        ) {
-            itemsIndexed(items = state.hotNews, key = { _, item -> item.id }) { _, item ->
-                VerticalNewsItem(
-                    news = item,
-                    onNewsClick = { newsId ->
-                        onNavigateToNewsDetailScreen(newsId.toString())
-                    },
-                )
-            }
-        }
+        HotNews(list = ImmutableList(state.hotNews), onItemClick = onNewsClick)
 
         Spacer(modifier = Modifier.padding(top = 8.dp))
         // favorite news title
@@ -99,25 +89,10 @@ private fun SuggestedNews(
             title = "خبر هایی که علاقه داری",
             onClick = {},
         )
+
         Spacer(modifier = Modifier.padding(top = 8.dp))
 
-        // favorite news list
-        state.favoriteNews.forEachIndexed { _, item ->
-            HorizontalNewsItem(
-                news = item,
-                onItemClick = { newsId ->
-                    onNavigateToNewsDetailScreen(newsId.toString())
-                },
-            )
-
-            /*     FavoriteNewsItem(
-                     modifier = Modifier.padding(horizontal = 16.dp)
-                         .alphaAnimation(
-                             enabled = viewModel.isLaunchAnimation,
-                             delay = 1000,
-                             duration = 1000,
-                         ),*/
-        }
+        FavoriteNews(list = ImmutableList(state.favoriteNews), onItemClick = onNewsClick)
 
     }
 
@@ -125,6 +100,54 @@ private fun SuggestedNews(
     LaunchedEffect(Unit) {
         //  delay(1200)
         //  viewModel.isLaunchAnimation = false
+    }
+}
+
+@Stable
+@Composable
+fun HotNews(
+    list: ImmutableList<News>,
+    onItemClick: (Int) -> Unit,
+) {
+    LazyRow(
+        modifier = Modifier
+            .fillMaxWidth()
+            /*  .alphaAnimation(
+                     enabled = viewModel.isLaunchAnimation,
+                     delay = 500,
+                     duration = 1000,
+                 )*/
+            .padding(start = 16.dp)
+    ) {
+        itemsIndexed(items = list.items, key = { _, item -> item.id }) { _, item ->
+            VerticalNewsItem(
+                news = item,
+                onNewsClick = onItemClick,
+            )
+        }
+    }
+}
+
+@Stable
+@Composable
+fun FavoriteNews(
+    list: ImmutableList<News>,
+    onItemClick: (Int) -> Unit,
+) {
+    list.items.forEachIndexed { _, item ->
+        HorizontalNewsItem(
+            news = item,
+            onItemClick = onItemClick,
+        )
+
+        /*
+                     FavoriteNewsItem(
+                         modifier = Modifier.padding(horizontal = 16.dp)
+                             .alphaAnimation(
+                                 enabled = viewModel.isLaunchAnimation,
+                                 delay = 1000,
+                                 duration = 1000,
+                             ),*/
     }
 }
 

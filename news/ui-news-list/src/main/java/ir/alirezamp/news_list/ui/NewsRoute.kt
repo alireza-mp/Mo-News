@@ -13,12 +13,14 @@ import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.Stable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import ir.alirezamp.components.util.AppBarAction
+import ir.alirezamp.components.util.ImmutableList
 import ir.alirezamp.components.util.TabState
 import ir.alirezamp.components.widget.AppBar
 import ir.alirezamp.designsystem.base.BaseViewModel
@@ -41,6 +43,7 @@ fun NewsRoute(
 
 }
 
+@Stable
 @Composable
 private fun NewsScreen(
     onNavigateToNewsDetailScreen: (newsId: String) -> Unit,
@@ -58,7 +61,7 @@ private fun NewsScreen(
             .background(color = MaterialTheme.colorScheme.surface)
     ) {
 
-        AppBar(actions = listOf(AppBarAction.NOTIFICATION), onClick = {})
+        AppBar(actions = ImmutableList(listOf(AppBarAction.NOTIFICATION)), onClick = {})
 
         Spacer(modifier = Modifier.padding(top = 16.dp))
         // tab row

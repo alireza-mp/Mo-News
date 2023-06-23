@@ -40,7 +40,7 @@ class FlowingNewsViewModel(
     }
 
     override fun event(event: FlowingNewsContract.Event) = when (event) {
-        is FlowingNewsContract.Event.getPbulisherNewsList -> getData()
+        is FlowingNewsContract.Event.GetPublisherNewsList -> getData()
     }
 
     override fun onRetryPressed() {

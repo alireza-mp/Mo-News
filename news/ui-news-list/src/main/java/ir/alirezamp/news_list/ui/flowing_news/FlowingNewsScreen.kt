@@ -12,14 +12,19 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.Stable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import ir.alirezamp.components.util.ImmutableList
 import ir.alirezamp.components.widget.VerticalNewsItem
 import ir.alirezamp.designsystem.base.BaseViewModel
 import ir.alirezamp.designsystem.util.use
+import ir.alirezamp.news_domain.model.News
 import ir.alirezamp.news_list.components.PublisherTitle
 import org.koin.androidx.compose.koinViewModel
 
+@Stable
 @Composable
 fun FlowingNewsScreen(
     viewModel: FlowingNewsViewModel = koinViewModel(),
@@ -44,6 +49,7 @@ fun FlowingNewsScreen(
     }
 }
 
+@Stable
 @Composable
 private fun FlowingNews(
     state: FlowingNewsContract.State,
@@ -53,7 +59,13 @@ private fun FlowingNews(
 ) {
 
     LaunchedEffect(key1 = Unit) {
-        event(FlowingNewsContract.Event.getPbulisherNewsList)
+        event(FlowingNewsContract.Event.GetPublisherNewsList)
+    }
+    val onNewsItemClick = remember<(id: Int) -> Unit> {
+        { id -> onNavigateToNewsDetailScreen(id.toString()) }
+    }
+    val onMorePublishersClick = remember<(id: Int) -> Unit> {
+        { id -> onNavigateToPublisherDetailScreen(id.toString()) }
     }
 
     Column(
@@ -75,34 +87,45 @@ private fun FlowingNews(
                 title = publisherNews.publisher.title,
                 imageUrl = publisherNews.publisher.imageUrl,
                 onClick = {
-                    onNavigateToPublisherDetailScreen(publisherNews.publisher.id.toString())
+                    onMorePublishersClick(publisherNews.publisher.id)
                 },
             )
 
             Spacer(modifier = Modifier.padding(top = 8.dp))
 
             // news list
-            LazyRow(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    /*     .alphaAnimation(
-                             enabled = viewModel.isLaunchAnimation,
-                             delay = 500,
-                             duration = 1000,
-                         )*/
-                    .padding(start = 16.dp)
-            ) {
-                itemsIndexed(items = publisherNews.news) { _, item ->
-                    VerticalNewsItem(
-                        news = item,
-                        onNewsClick = { newsId ->
-                            onNavigateToNewsDetailScreen(newsId.toString())
-                        },
-                    )
-                }
-            }
+            NewsList(ImmutableList(publisherNews.news), onItemClick = onNewsItemClick)
+
             Spacer(modifier = Modifier.padding(top = 8.dp))
         }
 
+    }
+}
+
+@Stable
+@Composable
+private fun NewsList(
+    list: ImmutableList<News>,
+    onItemClick: (Int) -> Unit,
+) {
+    LazyRow(
+        modifier = Modifier
+            .fillMaxWidth()
+            /*     .alphaAnimation(
+                     enabled = viewModel.isLaunchAnimation,
+                     delay = 500,
+                     duration = 1000,
+                 )*/
+            .padding(start = 16.dp)
+    ) {
+        itemsIndexed(
+            items = list.items,
+            key = { _, item -> item.id },
+        ) { _, item ->
+            VerticalNewsItem(
+                news = item,
+                onNewsClick = onItemClick,
+            )
+        }
     }
 }

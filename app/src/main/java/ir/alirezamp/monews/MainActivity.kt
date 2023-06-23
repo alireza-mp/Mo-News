@@ -25,6 +25,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.ViewCompat
+import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
@@ -65,10 +66,8 @@ class MainActivity : ComponentActivity() {
                                 currentRoute = currentRoute ?: "",
                                 onItemClick = { newRoute ->
                                     navController.navigate(newRoute) {
-                                        popUpTo(currentRoute ?: "") {
+                                        popUpTo(navController.graph.findStartDestination().id) {
                                             saveState = true
-                                            inclusive = true
-
                                         }
                                         launchSingleTop = true
                                         restoreState = true
