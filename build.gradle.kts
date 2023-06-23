@@ -10,6 +10,7 @@ buildscript {
         set("coilCompose", "2.4.0")
         set("navigationCompose", "2.6.0")
         set("progressLib", "0.2.0")
+        set("composeRuntime", "1.4.3")
     }
 }//// Top-level build file where you can add configuration options common to all sub-projects/modules.
 plugins {

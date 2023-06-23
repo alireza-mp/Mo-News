@@ -12,6 +12,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Stable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -27,7 +28,7 @@ import ir.alirezamp.components.R
 import ir.alirezamp.components.util.IconButton
 import ir.alirezamp.news_domain.model.News
 
-
+@Stable
 @Composable
 fun VerticalNewsItem(
     modifier: Modifier = Modifier,

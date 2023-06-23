@@ -14,6 +14,7 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Stable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -21,10 +22,12 @@ import androidx.compose.ui.unit.dp
 import ir.alirezamp.components.R
 import ir.alirezamp.components.util.AppBarAction
 import ir.alirezamp.components.util.IconButton
+import ir.alirezamp.components.util.ImmutableList
 
+@Stable
 @Composable
 fun AppBar(
-    actions: List<AppBarAction>,
+    actions: ImmutableList<AppBarAction>,
     onClick: (action: AppBarAction) -> Unit,
 ) {
     Card(
@@ -44,7 +47,7 @@ fun AppBar(
                 modifier = Modifier.align(Alignment.CenterEnd),
                 horizontalArrangement = Arrangement.Center,
             ) {
-                actions.forEach { action ->
+                actions.items.forEach { action ->
                     IconButton(
                         modifier = Modifier.padding(start = 8.dp),
                         onClick = {

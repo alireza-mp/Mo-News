@@ -40,6 +40,7 @@ dependencies {
     val kotlinxSerialization: String by rootProject.extra
     val koinVersion: String by rootProject.extra
     val logback: String by rootProject.extra
+    val composeRuntime: String by rootProject.extra
 
     //ktor
     api("io.ktor:ktor-client-core:$ktorVersion")
@@ -52,4 +53,7 @@ dependencies {
 
     //koin
     api("io.insert-koin:koin-android:$koinVersion")
+
+    //compose runtime
+    api("androidx.compose.runtime:runtime:$composeRuntime")
 }

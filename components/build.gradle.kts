@@ -42,6 +42,7 @@ dependencies {
     val composeBom: String by rootProject.extra
     val coilCompose: String by rootProject.extra
     val progressLib: String by rootProject.extra
+    val composeRuntime: String by rootProject.extra
 
     api(project(":news:news-domain"))
     api("io.coil-kt:coil-compose:$coilCompose")
@@ -50,6 +51,7 @@ dependencies {
     api("androidx.compose.ui:ui-graphics")
     api("androidx.compose.ui:ui-tooling-preview")
     api("androidx.compose.material3:material3")
+    api("androidx.compose.runtime:runtime:$composeRuntime")
 
     // progress
     implementation("com.ehsanmsz:msz-progress-indicator:$progressLib")

@@ -10,6 +10,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Stable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -20,15 +21,16 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import ir.alirezamp.publisher_domain.model.Publisher
 
+@Stable
 @Composable
 fun PublisherItem(
     modifier: Modifier = Modifier,
     publisher: Publisher,
-    onClick: () -> Unit,
+    onItemClick: (Int, Boolean) -> Unit,
 ) {
     Card(
         modifier = modifier.size(133.dp, 160.dp),
-        onClick = onClick,
+        onClick = { onItemClick(publisher.id, !publisher.flowing.value) },
         shape = MaterialTheme.shapes.medium,
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.secondary),
     ) {
@@ -57,11 +59,9 @@ fun PublisherItem(
             )
             Spacer(modifier = Modifier.padding(top = 10.dp))
             Chips(
-                title = "دنبال کردن",
+                title = if (publisher.flowing.value) "دنبال میکنید" else "دنبال کردن",
                 enabled = true,
-                onClick = {
-
-                }
+                onClick = { onItemClick(publisher.id, !publisher.flowing.value) },
             )
         }
 

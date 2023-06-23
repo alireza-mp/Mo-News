@@ -9,6 +9,7 @@ import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.Stable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -18,21 +19,23 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
+import ir.alirezamp.components.util.ImmutableList
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 
+@Stable
 @Composable
 fun Slider(
     padding: PaddingValues = PaddingValues(),
-    imagesUrls: List<String>,
+    imagesUrls: ImmutableList<String>,
 ) {
     val pagerState = rememberPagerState()
     val coroutineScope = rememberCoroutineScope()
     Box(modifier = Modifier.fillMaxSize()) {
 
         HorizontalPager(
-            pageCount = imagesUrls.size,
+            pageCount = imagesUrls.items.size,
             modifier = Modifier
                 .fillMaxWidth()
                 .height(180.dp),
@@ -44,7 +47,7 @@ fun Slider(
                     .padding(padding)
                     .clip(MaterialTheme.shapes.medium),
                 model = ImageRequest.Builder(LocalContext.current)
-                    .data(imagesUrls[page])
+                    .data(imagesUrls.items[page])
                     .crossfade(true)
                     .build(),
                 contentDescription = null,
@@ -56,7 +59,7 @@ fun Slider(
             modifier = Modifier
                 .align(Alignment.BottomCenter)
                 .padding(bottom = 16.dp),
-            itemCount = imagesUrls.size,
+            itemCount = imagesUrls.items.size,
             activeColor = MaterialTheme.colorScheme.primary,
             inActiveColor = MaterialTheme.colorScheme.onSecondary,
             pagerState = pagerState,
@@ -73,7 +76,7 @@ fun Slider(
         var page: Int
         while (true) {
             delay(3000)
-            page = if (pagerState.currentPage == imagesUrls.size - 1)
+            page = if (pagerState.currentPage == imagesUrls.items.size - 1)
                 0 else pagerState.currentPage + 1
             pagerState.animateScrollToPage(page)
         }
