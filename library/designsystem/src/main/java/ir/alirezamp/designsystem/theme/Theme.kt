@@ -30,6 +30,7 @@ private val DarkColorScheme = darkColorScheme(
     onSecondary = MainGray, // cards gray title
     secondaryContainer = White, // cards back
     onSecondaryContainer = MainBlack, // cards black title
+    background = MainWhite,
 )
 
 private val LightColorScheme = lightColorScheme(
@@ -47,6 +48,7 @@ private val LightColorScheme = lightColorScheme(
     onSecondary = MainGray, // cards gray title
     secondaryContainer = White, // cards back
     onSecondaryContainer = MainBlack, // cards black title
+    background = MainWhite,
 )
 
 @Composable

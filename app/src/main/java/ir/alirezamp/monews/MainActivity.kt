@@ -9,6 +9,7 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
@@ -16,6 +17,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -48,47 +50,55 @@ class MainActivity : ComponentActivity() {
             val navController = rememberNavController()
             val navBackStackEntry by navController.currentBackStackEntryAsState()
             val currentRoute = navBackStackEntry?.destination?.route
-            /*val bottomNavVisible = */
-            val appbarVisible = false
+            val isBottomNavVisible = remember { mutableStateOf(false) }
 
             MoNewsTheme {
                 SetStatusBarColor()
-                Scaffold(
+                Surface(
                     modifier = Modifier.fillMaxSize(),
-                    contentColor = MaterialTheme.colorScheme.surface,
-                    bottomBar = {
-                        AnimatedVisibility(
-                            visible = true,
-                            enter = slideInVertically { it },
-                            exit = slideOutVertically { it },
-                        ) {
-                            BottomNavigation(
-                                currentRoute = currentRoute ?: "",
-                                onItemClick = { newRoute ->
-                                    navController.navigate(newRoute) {
-                                        popUpTo(navController.graph.findStartDestination().id) {
-                                            saveState = true
+                    color = MaterialTheme.colorScheme.surface,
+                ) {
+                    Scaffold(
+                        modifier = Modifier.fillMaxSize(),
+                        contentColor = MaterialTheme.colorScheme.surface,
+                        bottomBar = {
+                            AnimatedVisibility(
+                                visible = isBottomNavVisible.value,
+                                enter = slideInVertically { it },
+                                exit = slideOutVertically { it },
+                            ) {
+                                BottomNavigation(
+                                    currentRoute = currentRoute ?: "",
+                                    onItemClick = { newRoute ->
+                                        navController.navigate(newRoute) {
+                                            popUpTo(navController.graph.findStartDestination().id) {
+                                                saveState = true
+                                            }
+                                            launchSingleTop = true
+                                            restoreState = true
                                         }
-                                        launchSingleTop = true
-                                        restoreState = true
+                                    }
+                                )
+                            }
+                        }
+                    ) {
+                        Box(modifier = Modifier.padding(it)) {
+
+                            BaseRoute(baseViewModel = baseViewModel) {
+                                LaunchedEffect(key1 = Unit) {
+                                    if (!isBottomNavVisible.value) {
+                                        isBottomNavVisible.value = true
                                     }
                                 }
-                            )
-                        }
-                    }
-                ) {
-                    Surface(
-                        modifier = Modifier.padding(it),
-                        color = MaterialTheme.colorScheme.surface,
-                    ) {
-                        BaseRoute(baseViewModel = baseViewModel) {
-                            MoNewsNavHost(
-                                navController = navController,
-                                modifier = Modifier,
-                                onProvideBaseViewModel = { viewModel ->
-                                    baseViewModel = viewModel
-                                }
-                            )
+
+                                MoNewsNavHost(
+                                    navController = navController,
+                                    modifier = Modifier,
+                                    onProvideBaseViewModel = { viewModel ->
+                                        baseViewModel = viewModel
+                                    }
+                                )
+                            }
                         }
                     }
                 }
