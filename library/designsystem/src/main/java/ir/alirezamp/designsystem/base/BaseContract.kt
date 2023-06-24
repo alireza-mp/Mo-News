@@ -7,6 +7,8 @@ interface BaseContract :
 
 
     sealed class BaseState {
+
+        object OnInitialize : BaseState()
         object OnLoading : BaseState()
         object OnSuccess : BaseState()
         data class OnError(val message: String) : BaseState()

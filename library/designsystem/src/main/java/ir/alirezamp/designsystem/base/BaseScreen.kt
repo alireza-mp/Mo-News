@@ -6,6 +6,9 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import ir.alirezamp.components.widget.ErrorView
+import ir.alirezamp.components.widget.InitializeView
+import ir.alirezamp.components.widget.LoadingView
 import ir.alirezamp.designsystem.util.collectInLaunchedEffect
 import ir.alirezamp.designsystem.util.useBase
 
@@ -46,13 +49,13 @@ fun BaseScreen(
 ) {
     Box(modifier = Modifier.fillMaxSize()) {
         when (baseState) {
-            BaseContract.BaseState.OnLoading -> ir.alirezamp.components.widget.LoadingView()
-            is BaseContract.BaseState.OnError -> ir.alirezamp.components.widget.ErrorView(
+            BaseContract.BaseState.OnLoading -> LoadingView()
+            BaseContract.BaseState.OnSuccess -> content()
+            BaseContract.BaseState.OnInitialize -> InitializeView(content)
+            is BaseContract.BaseState.OnError -> ErrorView(
                 baseState.message,
                 onRetry = onRetry
             )
-
-            BaseContract.BaseState.OnSuccess -> content()
         }
     }
 }

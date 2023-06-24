@@ -112,7 +112,9 @@ private fun Content(
                     unselectedIconColor = MaterialTheme.colorScheme.onSurfaceVariant,
                     indicatorColor = MaterialTheme.colorScheme.surfaceVariant,
                 ),
-                selected = currentRoute == item.screenRoute,
+                /*selected = currentRoute == item.screenRoute,*/
+                // remove this when created other nav screens
+                selected = (currentRoute == item.screenRoute) && (index < 2),
                 onClick = {
                     selectorXPointState.value = tabsPoint[index].dp
                     onBottomItemClick(items[index].screenRoute)

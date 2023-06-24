@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.receiveAsFlow
 open class BaseViewModel : ViewModel(), BaseContract {
 
     protected val mutableBaseState: MutableStateFlow<BaseContract.BaseState> =
-        MutableStateFlow(BaseContract.BaseState.OnSuccess)
+        MutableStateFlow(BaseContract.BaseState.OnInitialize)
 
     override val baseState: StateFlow<BaseContract.BaseState>
         get() = mutableBaseState.asStateFlow()

@@ -77,11 +77,11 @@ class MainActivity : ComponentActivity() {
                         }
                     }
                 ) {
-                    BaseRoute(baseViewModel = baseViewModel) {
-                        Surface(
-                            modifier = Modifier.padding(it),
-                            color = MaterialTheme.colorScheme.background,
-                        ) {
+                    Surface(
+                        modifier = Modifier.padding(it),
+                        color = MaterialTheme.colorScheme.surface,
+                    ) {
+                        BaseRoute(baseViewModel = baseViewModel) {
                             MoNewsNavHost(
                                 navController = navController,
                                 modifier = Modifier,
