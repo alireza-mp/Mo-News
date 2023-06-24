@@ -12,6 +12,6 @@ data class NewsDetail(
     val publisher: String,
     val publisherImageUrl: String,
     val recommended: String,
-    val time: Double,
+    val time: Int,
     val title: String,
 )

@@ -23,7 +23,7 @@ data class NewsDto(
     @SerialName("recommended")
     val recommended: String,
     @SerialName("time")
-    val time: Double,
+    val time: Int,
     @SerialName("title")
     val title: String,
 )

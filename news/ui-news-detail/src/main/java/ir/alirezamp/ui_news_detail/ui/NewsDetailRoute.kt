@@ -180,7 +180,7 @@ private fun NewsDetailScreen(
                             )
 
                             Text(
-                                text = " دقیقه پیش ${newsDetail.time}",
+                                text = "${newsDetail.time} دقیقه قبل ",
                                 color = MaterialTheme.colorScheme.onSecondaryContainer,
                                 style = MaterialTheme.typography.labelMedium,
                             )
