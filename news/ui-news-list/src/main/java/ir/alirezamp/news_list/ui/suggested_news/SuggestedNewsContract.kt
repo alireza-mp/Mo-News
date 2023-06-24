@@ -8,11 +8,14 @@ interface SuggestedNewsContract :
 
 
     data class State(
+        val isFirstTimeAnimation: Boolean = false,
         val hotNews: List<News> = listOf(),
         val favoriteNews: List<News> = listOf(),
     )
 
-    sealed class Event
+    sealed class Event {
+        object DisableFirstTimeAnimation : Event()
+    }
 
 
 }

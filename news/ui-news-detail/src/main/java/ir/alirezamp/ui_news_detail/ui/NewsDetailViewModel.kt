@@ -31,7 +31,10 @@ class NewsDetailViewModel(
                 when (val result = getNewsDetail(newsId)) {
                     is DataState.Success -> {
                         mutableState.update {
-                            NewsDetailContract.State(result.data)
+                            NewsDetailContract.State(
+                                isFirstTimeAnimation = true,
+                                newsDetail = result.data,
+                            )
                         }
                         mutableBaseState.update {
                             BaseContract.BaseState.OnSuccess
@@ -47,6 +50,8 @@ class NewsDetailViewModel(
 
     override fun event(event: NewsDetailContract.Event) = when (event) {
         is NewsDetailContract.Event.GetNewsDetail -> getData(event.newsId)
+        is NewsDetailContract.Event.DisableFirstTimeAnimation -> mutableState.value =
+            mutableState.value.copy(isFirstTimeAnimation = false)
     }
 
     override fun onRetryPressed() {

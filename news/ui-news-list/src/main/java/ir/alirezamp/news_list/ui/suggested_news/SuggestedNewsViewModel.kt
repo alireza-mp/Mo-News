@@ -37,6 +37,7 @@ class SuggestedNewsViewModel(
                     hotNews is DataState.Success && favoriteNews is DataState.Success -> {
                         mutableState.update {
                             SuggestedNewsContract.State(
+                                isFirstTimeAnimation = true,
                                 hotNews = hotNews.data ?: listOf(),
                                 favoriteNews = favoriteNews.data ?: listOf(),
                             )
@@ -58,7 +59,8 @@ class SuggestedNewsViewModel(
     }
 
     override fun event(event: SuggestedNewsContract.Event) = when (event) {
-        else -> print("")
+        is SuggestedNewsContract.Event.DisableFirstTimeAnimation -> mutableState.value =
+            mutableState.value.copy(isFirstTimeAnimation = false)
     }
 
     override fun onRetryPressed() {

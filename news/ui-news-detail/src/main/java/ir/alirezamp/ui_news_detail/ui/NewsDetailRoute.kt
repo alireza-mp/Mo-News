@@ -32,6 +32,8 @@ import androidx.compose.ui.unit.sp
 import ir.alirezamp.components.PublisherChips
 import ir.alirezamp.components.util.IconButton
 import ir.alirezamp.components.util.ImmutableList
+import ir.alirezamp.components.util.alphaAnimation
+import ir.alirezamp.components.util.offsetYAnimation
 import ir.alirezamp.components.widget.CardIndicator
 import ir.alirezamp.components.widget.Chips
 import ir.alirezamp.components.widget.RemoteImage
@@ -39,6 +41,7 @@ import ir.alirezamp.designsystem.base.BaseViewModel
 import ir.alirezamp.designsystem.theme.cardTopRoundedCorner
 import ir.alirezamp.designsystem.util.use
 import ir.alirezamp.ui_news_detail.R
+import kotlinx.coroutines.delay
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -74,18 +77,27 @@ private fun NewsDetailScreen(
             RemoteImage(
                 imageUrl = newsDetail.imageUrl,
                 modifier = Modifier
+                    .alphaAnimation(
+                        state.isFirstTimeAnimation,
+                        delay = 300,
+                        duration = 1300
+                    )
                     .fillMaxWidth()
                     .height(330.dp),
                 contentScale = ContentScale.FillBounds,
             )
             Row(
                 modifier = Modifier
+                    .alphaAnimation(
+                        state.isFirstTimeAnimation,
+                        delay = 300,
+                        duration = 1300
+                    )
                     .fillMaxWidth()
                     .align(Alignment.TopCenter)
                     .padding(top = 12.dp, end = 16.dp, start = 16.dp),
                 horizontalArrangement = Arrangement.Center,
             ) {
-
                 IconButton(onClick = { }) {
                     Icon(
                         painter = painterResource(id = R.drawable.ic_arrow_right),
@@ -118,7 +130,15 @@ private fun NewsDetailScreen(
             ) {
                 Spacer(modifier = Modifier.padding(top = 290.dp))
                 Card(
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .offsetYAnimation(
+                            state.isFirstTimeAnimation,
+                            delay = 0,
+                            duration = 800,
+                            startOffset = 400.dp,
+                            endOffset = 0.dp
+                        ),
                     shape = MaterialTheme.shapes.cardTopRoundedCorner,
                     colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.secondary),
                 ) {
@@ -198,6 +218,10 @@ private fun NewsDetailScreen(
                     }
                 }
             }
+        }
+        LaunchedEffect(key1 = state.isFirstTimeAnimation) {
+            delay(1600)
+            event(NewsDetailContract.Event.DisableFirstTimeAnimation)
         }
     }
 }
