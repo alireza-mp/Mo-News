@@ -6,11 +6,12 @@ import ir.alirezamp.news_datasource.ntework.dto.PublisherNewsDto
 
 interface NewsService {
 
-    suspend fun getHotNews(): List<NewsDto>?
+    suspend fun getHotNews(filter: String = "Hot"): List<NewsDto>?
 
-    suspend fun getFavoriteNews(): List<NewsDto>?
+    suspend fun getFavoriteNews(filter: String = "Favorite"): List<NewsDto>?
 
-    suspend fun getEditorSuggestionNews(): List<NewsDto>?
+    suspend fun getEditorSuggestionNews(filter: String = "EditorSuggestion"): List<NewsDto>?
+
     suspend fun getPublisherNews(): List<PublisherNewsDto>?
 
     suspend fun getNewsDetail(newsId: String): NewsDetailDto?

@@ -78,11 +78,6 @@ private fun FlowingNews(
             //title
             Spacer(modifier = Modifier.padding(top = 4.dp))
             PublisherTitle(
-                /* Modifier.alphaAnimation(
-                     enabled = viewModel.isLaunchAnimation,
-                     delay = 250,
-                     duration = 1000,
-                 ),*/
                 padding = PaddingValues(horizontal = 16.dp),
                 title = publisherNews.publisher.title,
                 imageUrl = publisherNews.publisher.imageUrl,
@@ -111,11 +106,6 @@ private fun NewsList(
     LazyRow(
         modifier = Modifier
             .fillMaxWidth()
-            /*     .alphaAnimation(
-                     enabled = viewModel.isLaunchAnimation,
-                     delay = 500,
-                     duration = 1000,
-                 )*/
             .padding(start = 16.dp)
     ) {
         itemsIndexed(

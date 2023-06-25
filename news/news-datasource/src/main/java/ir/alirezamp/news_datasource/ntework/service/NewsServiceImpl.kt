@@ -5,21 +5,21 @@ import io.ktor.client.call.body
 import io.ktor.client.request.get
 import io.ktor.client.request.parameter
 import io.ktor.http.HttpStatusCode
+import io.ktor.http.appendPathSegments
 import ir.alirezamp.constats.EndPoints
+import ir.alirezamp.constats.NetworkParams
 import ir.alirezamp.news_datasource.ntework.dto.NewsDetailDto
 import ir.alirezamp.news_datasource.ntework.dto.NewsDto
 import ir.alirezamp.news_datasource.ntework.dto.PublisherNewsDto
-import kotlinx.coroutines.delay
 
 class NewsServiceImpl(
     private val client: HttpClient,
 ) : NewsService {
 
-    override suspend fun getHotNews(): List<NewsDto>? {
-        delay(2000)
+    override suspend fun getHotNews(filter: String): List<NewsDto>? {
         return try {
             val result = client.get(EndPoints.NEWS) {
-                parameter("filter", "Hot")
+                parameter(NetworkParams.FILTER, filter)
             }
             if (result.status == HttpStatusCode.OK) {
                 return result.body<List<NewsDto>>()
@@ -30,10 +30,10 @@ class NewsServiceImpl(
         }
     }
 
-    override suspend fun getFavoriteNews(): List<NewsDto>? {
+    override suspend fun getFavoriteNews(filter: String): List<NewsDto>? {
         return try {
             val result = client.get(EndPoints.NEWS) {
-                parameter("filter", "Favorite")
+                parameter(NetworkParams.FILTER, filter)
             }
             if (result.status == HttpStatusCode.OK) {
                 return result.body<List<NewsDto>>()
@@ -44,10 +44,10 @@ class NewsServiceImpl(
         }
     }
 
-    override suspend fun getEditorSuggestionNews(): List<NewsDto>? {
+    override suspend fun getEditorSuggestionNews(filter: String): List<NewsDto>? {
         return try {
             val result = client.get(EndPoints.NEWS) {
-                parameter("filter", "EditorSuggestion")
+                parameter(NetworkParams.FILTER, filter)
             }
             if (result.status == HttpStatusCode.OK) {
                 return result.body<List<NewsDto>>()
@@ -72,7 +72,11 @@ class NewsServiceImpl(
 
     override suspend fun getNewsDetail(newsId: String): NewsDetailDto? {
         return try {
-            val result = client.get(EndPoints.newsDetail(newsId))
+            val result = client.get(EndPoints.BASE_API_URL) {
+                url {
+                    appendPathSegments(newsId, EndPoints.NEWS_DETAIL)
+                }
+            }
             if (result.status == HttpStatusCode.OK) {
                 return result.body<NewsDetailDto>()
             } else null

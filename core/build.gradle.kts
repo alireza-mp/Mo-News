@@ -16,7 +16,7 @@ android {
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -47,8 +47,8 @@ dependencies {
     api("io.ktor:ktor-client-android:$ktorVersion")
     api("io.ktor:ktor-client-content-negotiation:$ktorVersion")
     api("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
-    api("io.ktor:ktor-client-logging:$ktorVersion")
-    api("ch.qos.logback:logback-classic:$logback")
+//    api("io.ktor:ktor-client-logging:$ktorVersion")
+//    api("ch.qos.logback:logback-classic:$logback")
     api("org.jetbrains.kotlinx:kotlinx-serialization-json:$kotlinxSerialization")
 
     //koin
