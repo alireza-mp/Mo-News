@@ -2,6 +2,7 @@ package ir.alirezamp.monews.di
 
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.android.Android
+import io.ktor.client.plugins.HttpRequestRetry
 import io.ktor.client.plugins.HttpTimeout
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 //import io.ktor.client.plugins.logging.LogLevel
@@ -20,6 +21,10 @@ val mainModule = module {
             install(HttpTimeout) {
                 requestTimeoutMillis = 15000
                 connectTimeoutMillis = 15000
+            }
+            install(HttpRequestRetry) {
+                retryOnServerErrors(maxRetries = 3)
+                exponentialDelay()
             }
             install(ContentNegotiation) {
                 json(
